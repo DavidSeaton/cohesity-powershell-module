@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net451;netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>net48;netcoreapp2.0</TargetFrameworks>
     <RootNamespace>Cohesity.Powershell</RootNamespace>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <Configurations>Debug;Release;</Configurations>
@@ -30,18 +30,18 @@
   <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp2.0'">
     <AssemblyName>Cohesity.PowerShell.Core</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net451'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
     <AssemblyName>Cohesity.PowerShell</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Debug\net451\</net451Target>
+    <net48Target>$(BuildDir)bin\Debug\net48\</net48Target>
     <netcoreapp20Target>$(BuildDir)bin\Debug\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Debug\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <net451Target>$(BuildDir)bin\Release\net451\</net451Target>
+    <net48Target>$(BuildDir)bin\Release\net48\</net48Target>
     <netcoreapp20Target>$(BuildDir)bin\Release\netcoreapp2.0\</netcoreapp20Target>
     <DocumentationFile>bin\Release\netcoreapp2.0\Cohesity.Powershell.xml</DocumentationFile>
   </PropertyGroup>
@@ -58,7 +58,7 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <Content Include="Cohesity.PowerShell.psd1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -87,11 +87,11 @@
 
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <PackageReference Include="XmlDoc2CmdletDoc" Version="0.2.10" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net451'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -119,6 +119,6 @@
   </ItemGroup>
 
   <Target Name="CopyCmdletDoc" AfterTargets="Build">
-    <Copy SourceFiles="$(net451Target)\Cohesity.Powershell.dll-Help.xml" DestinationFiles="$(netcoreapp20Target)\Cohesity.Powershell.Core.dll-Help.xml" ContinueOnError="false" />
+    <Copy SourceFiles="$(net48Target)\Cohesity.Powershell.dll-Help.xml" DestinationFiles="$(netcoreapp20Target)\Cohesity.Powershell.Core.dll-Help.xml" ContinueOnError="false" />
   </Target>
 </Project>

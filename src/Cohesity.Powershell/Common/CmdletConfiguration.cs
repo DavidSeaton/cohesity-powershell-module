@@ -11,6 +11,7 @@ namespace Cohesity.Powershell.Common
     internal class CmdletConfig
     {
         public bool RefreshToken = false;
+        public string CertificatesLocation = @"C:\temp\";
     }
     internal class CmdletConfiguration
     {
@@ -81,6 +82,10 @@ namespace Cohesity.Powershell.Common
             {
                 return this.__config.RefreshToken;
             }
+        }
+        public string GetCertificatesLocation()
+        {
+            return this.__config.CertificatesLocation;
         }
     }
 }

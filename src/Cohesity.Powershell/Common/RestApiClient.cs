@@ -1,8 +1,11 @@
 ﻿// Copyright 2018 Cohesity Inc.
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Cohesity.Model;
 using Newtonsoft.Json;
@@ -36,21 +39,70 @@ namespace Cohesity.Powershell.Common
                 HttpClient = null;
             }
         }
+        private static bool ValidateCertificates(HttpRequestMessage request, X509Certificate2 certificate, X509Chain certificateChain, SslPolicyErrors policy)
+        {
+            string certLocation = CmdletConfiguration.Instance.GetCertificatesLocation();
+            string[] fileNames = System.IO.Directory.GetFiles(certLocation);
+            if(fileNames.Length == 0)
+            {
+                Console.WriteLine("No certificates available at {0}", certLocation);
+                return false;
+            }
+            byte[][] validRootCertificates = new byte[fileNames.Length][];
+            for (int i =0; i < fileNames.Length; i++)
+            {
+                try
+                {
+                    X509Certificate2 certFile = new X509Certificate2(fileNames[i]);
+                    validRootCertificates[i] = certFile.GetRawCertData();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception while loading certificates : {0}, {1}", fileNames[i], ex.Message);
+                }
+            }
 
+            if (certificateChain.ChainStatus.Any(status => status.Status != X509ChainStatusFlags.UntrustedRoot))
+                return false;
+
+            foreach (var element in certificateChain.ChainElements)
+            {
+                foreach (var status in element.ChainElementStatus)
+                {
+                    if (status.Status == X509ChainStatusFlags.UntrustedRoot)
+                    {
+                        if (validRootCertificates.Any(cert => cert.SequenceEqual(element.Certificate.RawData)))
+                            continue;
+                    }
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
         public HttpClient BuildClient(Uri baseAddress, bool allowInvalidServerCertificates) 
         {
             var handler = new HttpClientHandler();
-
             if (allowInvalidServerCertificates)
             {
+                if (null != CmdletConfiguration.Instance.GetCertificatesLocation())
+                {
+                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                    handler.ServerCertificateCustomValidationCallback = ValidateCertificates;
+                }
+                else
+                {
+
 #if NETCORE
-                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                    handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
 #endif
 
 #if NETFRAMEWORK
-                ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                    ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                    ServicePointManager.ServerCertificateValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
 #endif
+                }
             }
 
             HttpClient = new HttpClient(handler);

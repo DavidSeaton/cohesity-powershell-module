@@ -5,6 +5,7 @@ class CohesityConfig {
     $LogResponseData = $false
     $LogHeaderDetail = $false
     $RefreshToken = $false
+    $CertificatesLocation = $null
     # following values are read only, not for configuration purpose
     [string]$ConfigFolder = "cohesity"
     [string]$ConfigFileName = "config.json"
@@ -58,7 +59,10 @@ function Set-CohesityCmdletConfig {
         [Parameter(Mandatory = $false, ParameterSetName = 'RefreshToken')]
         [ValidateSet($true, $false)]
         # If set and the token has expired, the framework would attempt refreshing the token.
-        $RefreshToken = $false
+        $RefreshToken = $false,
+        [Parameter(Mandatory = $false, ParameterSetName = 'CertificatesLocation')]
+        # Client certificates folder path, for example "C:\certificates", reset the path by passing $null.
+        $CertificatesLocation = $null
     )
     Begin {
         [CohesityConfig]$configObject = [CohesityConfig]::New()
@@ -91,6 +95,15 @@ function Set-CohesityCmdletConfig {
                 }
                 'RefreshToken' {
                     $config.RefreshToken = $RefreshToken
+                }
+                'CertificatesLocation' {
+                    if($CertificatesLocation) {
+                        if($false -eq [System.IO.Directory]::Exists($CertificatesLocation)) {
+                            Write-Output "Invalid certificates path."
+                            return
+                        }
+                    }
+                    $config.CertificatesLocation = $CertificatesLocation
                 }
             }
             $config | ConvertTo-Json -depth 100 | Out-File $cmdletConfigPath
