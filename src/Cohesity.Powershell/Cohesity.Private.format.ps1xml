@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>MyView.TableView</Name>
+      <ViewSelectedBy>
+        <TypeName>Cohesity.Private.Model.MyView</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>CreateTimeMsecs</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+        <TableHeaders>
+          <TableColumnHeader/>
+        </TableHeaders>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

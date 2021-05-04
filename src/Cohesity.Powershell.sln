@@ -6,6 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cohesity.Powershell.Models", "Cohesity.Powershell.Models\Cohesity.Powershell.Models.csproj", "{F17517EE-FD31-416D-A084-C85BB38BC51C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cohesity.Powershell", "Cohesity.Powershell\Cohesity.Powershell.csproj", "{69E8F09A-EC0E-4767-92D2-F2FC35E78898}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3F284C6E-8701-4515-9BBD-CAD0879D64EE} = {3F284C6E-8701-4515-9BBD-CAD0879D64EE}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cohesity.Powershell.Private.Models", "Cohesity.Powershell.Private.Models\Cohesity.Powershell.Private.Models.csproj", "{3F284C6E-8701-4515-9BBD-CAD0879D64EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69E8F09A-EC0E-4767-92D2-F2FC35E78898}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F284C6E-8701-4515-9BBD-CAD0879D64EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F284C6E-8701-4515-9BBD-CAD0879D64EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F284C6E-8701-4515-9BBD-CAD0879D64EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F284C6E-8701-4515-9BBD-CAD0879D64EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
