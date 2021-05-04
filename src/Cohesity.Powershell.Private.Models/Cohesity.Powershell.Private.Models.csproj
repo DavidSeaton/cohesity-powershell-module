@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net451;netcoreapp2.0</TargetFrameworks>
+    <AssemblyName>Cohesity.Private.Models</AssemblyName>
+    <RootNamespace>Cohesity.Private.Models</RootNamespace>
+	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	<Configurations>Debug;Release;</Configurations>
+	<Authors>Cohesity</Authors>
+	<Product>Cohesity PowerShell Module</Product>
+	<Version>6.0.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+</Project>

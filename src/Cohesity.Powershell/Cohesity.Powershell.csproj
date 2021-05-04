@@ -111,11 +111,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cohesity.Powershell.Models\Cohesity.Powershell.Models.csproj" />
+    <ProjectReference Include="..\Cohesity.Powershell.Private.Models\Cohesity.Powershell.Private.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="$(SolutionDir)Cohesity.Powershell\Scripts\**">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Cohesity.Private.format.ps1xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

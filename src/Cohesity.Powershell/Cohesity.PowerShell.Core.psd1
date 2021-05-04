@@ -50,7 +50,7 @@ Description = 'Cohesity PowerShell Module provides cmdlets to manage and create 
 # RequiredModules = @('Newtonsoft.Json.dll')
 
 # Assemblies that must be loaded prior to importing this module
-# RequiredAssemblies = @()
+  RequiredAssemblies = @('Cohesity.Models.dll', 'Cohesity.Private.Models.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -59,7 +59,7 @@ Description = 'Cohesity PowerShell Module provides cmdlets to manage and create 
 # TypesToProcess = @()
 
 # Format files (.ps1xml) to be loaded when importing this module
-FormatsToProcess = @('Cohesity.format.ps1xml')
+FormatsToProcess = @('Cohesity.format.ps1xml', 'Cohesity.Private.format.ps1xml')
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
 NestedModules = @('Cohesity.PowerShell.psm1')
