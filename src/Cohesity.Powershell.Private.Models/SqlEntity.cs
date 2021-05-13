@@ -15,33 +15,33 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Private.Model
 {
     /// <summary>
-    /// MyView
+    /// SqlEntity
     /// </summary>
     [DataContract]
-    public partial class MyView :  IEquatable<MyView>
+    public partial class SqlEntity :  IEquatable<SqlEntity>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MyView" /> class.
+        /// Initializes a new instance of the <see cref="SqlEntity" /> class.
         /// </summary>
-        /// <param name="createDateMsecs">createDateMsecs.</param>
-        /// <param name="currentTime">currentTime.</param>
-        public MyView(decimal createDateMsecs = default(decimal), string currentTime = default(string))
+        /// <param name="type">type.</param>
+        /// <param name="sqlId">sqlId.</param>
+        public SqlEntity(int type = default(int), SqlId sqlId = default(SqlId))
         {
-            this.CreateDateMsecs = createDateMsecs;
-            this.CurrentTime = currentTime;
+            this.Type = type;
+            this.SqlId = sqlId;
         }
         
         /// <summary>
-        /// Gets or Sets CreateDateMsecs
+        /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name="createDateMsecs", EmitDefaultValue=false)]
-        public decimal CreateDateMsecs { get; set; }
+        [DataMember(Name="type", EmitDefaultValue=false)]
+        public int Type { get; set; }
 
         /// <summary>
-        /// Gets or Sets CurrentTime
+        /// Gets or Sets SqlId
         /// </summary>
-        [DataMember(Name="currentTime", EmitDefaultValue=false)]
-        public string CurrentTime { get { return (DateTime.Now.ToString()); } set { } }
+        [DataMember(Name="sqlId", EmitDefaultValue=false)]
+        public SqlId SqlId { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -65,28 +65,28 @@ namespace Cohesity.Private.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as MyView);
+            return this.Equals(input as SqlEntity);
         }
 
         /// <summary>
-        /// Returns true if MyView instances are equal
+        /// Returns true if SqlEntity instances are equal
         /// </summary>
-        /// <param name="input">Instance of MyView to be compared</param>
+        /// <param name="input">Instance of SqlEntity to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(MyView input)
+        public bool Equals(SqlEntity input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.CreateDateMsecs == input.CreateDateMsecs ||
-                    this.CreateDateMsecs.Equals(input.CreateDateMsecs)
+                    this.Type == input.Type ||
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
-                    this.CurrentTime == input.CurrentTime ||
-                    (this.CurrentTime != null &&
-                    this.CurrentTime.Equals(input.CurrentTime))
+                    this.SqlId == input.SqlId ||
+                    (this.SqlId != null &&
+                    this.SqlId.Equals(input.SqlId))
                 );
         }
 
@@ -99,9 +99,9 @@ namespace Cohesity.Private.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.CreateDateMsecs.GetHashCode();
-                if (this.CurrentTime != null)
-                    hashCode = hashCode * 59 + this.CurrentTime.GetHashCode();
+                hashCode = hashCode * 59 + this.Type.GetHashCode();
+                if (this.SqlId != null)
+                    hashCode = hashCode * 59 + this.SqlId.GetHashCode();
                 return hashCode;
             }
         }

@@ -15,33 +15,35 @@ using Newtonsoft.Json.Converters;
 namespace Cohesity.Private.Model
 {
     /// <summary>
-    /// MyView
+    /// Specifies a data type and data field used to store data.
     /// </summary>
     [DataContract]
-    public partial class MyView :  IEquatable<MyView>
+    public partial class Value :  IEquatable<Value>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MyView" /> class.
+        /// Initializes a new instance of the <see cref="Value" /> class.
         /// </summary>
-        /// <param name="createDateMsecs">createDateMsecs.</param>
-        /// <param name="currentTime">currentTime.</param>
-        public MyView(decimal createDateMsecs = default(decimal), string currentTime = default(string))
+        /// <param name="data">data.</param>
+        /// <param name="type">Specifies the type of value. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes..</param>
+        public Value(ValueData data = default(ValueData), int? type = default(int?))
         {
-            this.CreateDateMsecs = createDateMsecs;
-            this.CurrentTime = currentTime;
+            this.Type = type;
+            this.Data = data;
+            this.Type = type;
         }
         
         /// <summary>
-        /// Gets or Sets CreateDateMsecs
+        /// Gets or Sets Data
         /// </summary>
-        [DataMember(Name="createDateMsecs", EmitDefaultValue=false)]
-        public decimal CreateDateMsecs { get; set; }
+        [DataMember(Name="data", EmitDefaultValue=false)]
+        public ValueData Data { get; set; }
 
         /// <summary>
-        /// Gets or Sets CurrentTime
+        /// Specifies the type of value. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.
         /// </summary>
-        [DataMember(Name="currentTime", EmitDefaultValue=false)]
-        public string CurrentTime { get { return (DateTime.Now.ToString()); } set { } }
+        /// <value>Specifies the type of value. 0 specifies a data point of type Int64. 1 specifies a data point of type Double. 2 specifies a data point of type String. 3 specifies a data point of type Bytes.</value>
+        [DataMember(Name="type", EmitDefaultValue=true)]
+        public int? Type { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -65,28 +67,29 @@ namespace Cohesity.Private.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as MyView);
+            return this.Equals(input as Value);
         }
 
         /// <summary>
-        /// Returns true if MyView instances are equal
+        /// Returns true if Value instances are equal
         /// </summary>
-        /// <param name="input">Instance of MyView to be compared</param>
+        /// <param name="input">Instance of Value to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(MyView input)
+        public bool Equals(Value input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.CreateDateMsecs == input.CreateDateMsecs ||
-                    this.CreateDateMsecs.Equals(input.CreateDateMsecs)
+                    this.Data == input.Data ||
+                    (this.Data != null &&
+                    this.Data.Equals(input.Data))
                 ) && 
                 (
-                    this.CurrentTime == input.CurrentTime ||
-                    (this.CurrentTime != null &&
-                    this.CurrentTime.Equals(input.CurrentTime))
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -99,9 +102,10 @@ namespace Cohesity.Private.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                hashCode = hashCode * 59 + this.CreateDateMsecs.GetHashCode();
-                if (this.CurrentTime != null)
-                    hashCode = hashCode * 59 + this.CurrentTime.GetHashCode();
+                if (this.Data != null)
+                    hashCode = hashCode * 59 + this.Data.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

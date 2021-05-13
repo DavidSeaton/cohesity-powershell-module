@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
   <ViewDefinitions>
+    <!-- View Allowlist Object Script based cmdlet -->
     <View>
-      <Name>MyView.TableView</Name>
+      <Name>Cohesity.Private.Model.MyView.TableView</Name>
       <ViewSelectedBy>
         <TypeName>Cohesity.Private.Model.MyView</TypeName>
       </ViewSelectedBy>
@@ -11,15 +12,24 @@
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>CreateTimeMsecs</PropertyName>
+                <PropertyName>CurrentTime</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CreateDateMsecs</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
         </TableRowEntries>
         <TableHeaders>
-          <TableColumnHeader/>
+          <TableColumnHeader>
+            <Label>CurrentTime</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>CreateDateMsecs</Label>
+          </TableColumnHeader>
         </TableHeaders>
       </TableControl>
     </View>
+
   </ViewDefinitions>
 </Configuration>
