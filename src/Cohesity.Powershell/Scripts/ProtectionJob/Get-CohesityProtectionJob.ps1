@@ -21,7 +21,7 @@ function Get-CohesityProtectionJob {
         Get-CohesityProtectionJob -OnlyDeleted
         Gets only the deleted protection jobs on the Cohesity Cluster.
     #>
-    [OutputType('System.Array')]
+    [OutputType('Cohesity.Model.ProtectionJob')]
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory = $false)]
@@ -102,7 +102,8 @@ function Get-CohesityProtectionJob {
                 $resp = @($resp | where-object { $Names -contains $_.Name})
             }
             # tagging reponse for display format ( configured in Cohesity.format.ps1xml )
-            @($resp | Add-Member -TypeName 'System.Object#ProtectionJob' -PassThru)
+            # @($resp | Add-Member -TypeName 'Cohesity.Model.ProtectionJob' -PassThru)
+			[Newtonsoft.Json.JsonConvert]::DeserializeObject(($resp | ConvertTo-Json -depth 100),[System.Collections.Generic.IList[Cohesity.Model.ProtectionJob]])
         }
     }
 
